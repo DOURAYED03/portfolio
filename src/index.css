@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add scroll-margin-top to sections for smooth scrolling offset */
+#home,
+#about,
+#projects,
+#communityengagement,
+#contact {
+  scroll-margin-top: 80px;
+}
+
+/* Fade-in animation for staggered icon appearance */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
