@@ -1,0 +1,10 @@
+{
+  "description": "Showcases a bilingual, professional portfolio highlighting AI and software engineering skills, projects, and experience for a future computer engineer.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
