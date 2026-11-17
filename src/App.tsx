@@ -145,7 +145,7 @@ const t = {
       subtitle: "Let's build something together. I'm open to internships, collaborations, and AI/software engineering opportunities.",
       form: { name: 'Full Name', email: 'Email Address', subject: 'Subject', message: 'Your Message', send: 'Send Message' },
       links: { email: 'Send an Email', linkedin: 'LinkedIn', github: 'GitHub' },
-      successMsg: "Message sent! I'll get back to you shortly.",
+      successMsg: "Your email client should open with the message ready to send.",
     },
     footer: 'Designed & built by Dourayed Glii · Computer Engineering Student @ ENSIT',
   },
@@ -286,7 +286,7 @@ const t = {
       subtitle: "Construisons quelque chose ensemble. Je suis disponible pour des stages, collaborations et opportunités en IA et développement logiciel.",
       form: { name: 'Nom complet', email: 'Adresse e-mail', subject: 'Sujet', message: 'Votre message', send: 'Envoyer le message' },
       links: { email: 'Envoyer un e-mail', linkedin: 'LinkedIn', github: 'GitHub' },
-      successMsg: "Message envoyé ! Je vous répondrai très bientôt.",
+      successMsg: "Votre client e-mail devrait s'ouvrir avec le message prêt à être envoyé.",
     },
     footer: 'Conçu & développé par Dourayed Glii · Étudiant Ingénieur @ ENSIT',
   },
@@ -1034,11 +1034,14 @@ function Certifications({ lang }: { lang: Lang }) {
 function Contact({ lang }: { lang: Lang }) {
   const tr = t[lang].contact
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [emailPrepared, setEmailPrepared] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setSent(true)
+    const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+    const mailto = `mailto:dourayedg@gmail.com?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = mailto
+    setEmailPrepared(true)
     setForm({ name: '', email: '', subject: '', message: '' })
   }
 
@@ -1058,7 +1061,7 @@ function Contact({ lang }: { lang: Lang }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {[
-                { icon: '✉️', label: tr.links.email, href: 'mailto:dourayed.glii@example.com' },
+                { icon: '✉️', label: tr.links.email, href: 'mailto:dourayedg@gmail.com' },
                 { icon: '💼', label: tr.links.linkedin, href: 'https://www.linkedin.com/in/glii-dourayed-14047a30b/' },
                 { icon: '🐙', label: tr.links.github, href: 'https://github.com/DOURAYED03' },
               ].map((link, i) => (
@@ -1088,11 +1091,11 @@ function Contact({ lang }: { lang: Lang }) {
 
           {/* Right: Form */}
           <div className="tech-card" style={{ borderRadius: '12px', padding: '2rem' }}>
-            {sent ? (
+            {emailPrepared ? (
               <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>✅</div>
+                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>✉️</div>
                 <p style={{ fontWeight: 600, fontSize: '1.0625rem', color: 'var(--foreground)', marginBottom: '0.5rem' }}>{tr.successMsg}</p>
-                <button className="btn-ghost" style={{ marginTop: '1.5rem' }} onClick={() => setSent(false)}>
+                <button className="btn-ghost" style={{ marginTop: '1.5rem' }} onClick={() => setEmailPrepared(false)}>
                   {lang === 'en' ? 'Send another' : 'Envoyer un autre'}
                 </button>
               </div>
